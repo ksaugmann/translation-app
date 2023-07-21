@@ -3,6 +3,10 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const { Configuration, OpenAIApi } = require("openai");
 
+if (process.env.NODE_ENV === "development" || process.env.NODE_ENV === "dev") {
+  dotenv.config({path: path.resolve(__dirname, ".env")});
+}
+
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
 });
