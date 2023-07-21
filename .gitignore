@@ -348,8 +348,4 @@ package-lock.json
 
 *.map
 
-public/css
-
-*.css
-
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,node,dotenv,macos,windows,webstorm

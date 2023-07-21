@@ -1,0 +1,210 @@
+/* Reset and global styles */
+body {
+  font-family: Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #F5F5F5;
+}
+
+a {
+  text-decoration: none;
+}
+
+h1, h2 {
+  color: #333;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+/* Branding and header styles */
+.home-button {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+p.branding-text {
+  font-size: 1.7em;
+  font-weight: 300;
+  padding: 0px;
+  margin-top: 50px;
+}
+
+/* Form styles */
+#translation-form {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+  margin-bottom: 5px;
+  text-align: center;
+  width: 80%;
+  max-width: 480px; /* Adjust this to the desired maximum width */
+}
+
+#translation-form label {
+  display: inline-block;
+  margin: 5px;
+}
+
+#text {
+  padding: 15px;
+  font-size: 18px;
+  width: 100%;
+  box-sizing: border-box;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  margin-bottom: 10px;
+}
+
+#radio-buttons {
+  display: flex;
+  justify-content: center;
+}
+
+.follow-up-container {
+  display: flex;
+  justify-content: space-between;
+  width: 480px;
+  flex-wrap: nowrap;
+}
+
+.follow-up-button {
+  flex: 1; /* Flex items will grow and shrink equally so they fill its parent container */
+  padding: 10px;
+  margin: 5px;
+  box-sizing: border-box;
+  text-align: center;
+  min-height: 50px;
+}
+
+.footer {
+  padding: 5px;
+  font-size: 12px;
+  margin-right: 20px;
+  text-align: right;
+  width: 100%;
+  margin-top: auto;
+}
+
+/* Button styles */
+button {
+  background-color: #007BFF;
+  color: white;
+  padding: 16px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  width: 100%;
+}
+
+#question-1, #question-2, #question-3 {
+  background-color: #4682B4; /* Steel Blue */
+  color: white;
+
+}
+
+#question-buttons {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.5s, transform 0.5s;
+  display: none;
+}
+
+/* Button loading styles */
+button.loading {
+  position: relative;
+}
+
+button.loading::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 47%;
+  width: 20px;
+  height: 20px;
+  margin-top: -10px;
+  margin-left: -10px;
+  border-radius: 50%;
+  border: 2px solid #4CAF50;
+  border-top-color: #ffffff;
+  animation: spin 1.5s linear infinite;
+}
+
+button.loading span {
+  visibility: hidden;
+}
+
+button.follow-up-button.loading span {
+  visibility: hidden;
+}
+
+.hide-text {
+  font-size: 0;
+}
+
+/* Result styles */
+#results {
+  width: 80%; /* The same width as the form */
+  max-width: 480px; /* Adjust this to the desired maximum width */
+  white-space: pre-line;
+  margin-bottom: 0px;
+}
+
+#results p {
+  margin-bottom: 0px;
+  margin-top: 0px;
+}
+
+/* Loading animation */
+#loading {
+  border: 16px solid #f3f3f3;
+  border-top: 16px solid #3498db;
+  border-radius: 50%;
+  width: 50px;
+  height: 40px;
+  animation: spin 2s linear infinite;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+/* Responsive styles */
+@media (max-width: 500px) {
+  #translation-form,
+  #results {
+    width: 90%;
+  }
+
+  body {
+    padding: 0 20px;
+  }
+
+  #text,
+  button {
+    width: 100%;
+  }
+
+  p.branding-text {
+    margin-top: 50px;
+  }
+}
