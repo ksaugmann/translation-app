@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Ordbog.ai</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://kit.fontawesome.com/e7a071357b.js" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+  <a href="/" class="home-button">Ordbog.ai</a>
+  <p class="branding-text" id="branding-text">Free translation with sentence examples</p>
+  <form id="translation-form">
+    <input type="text" id="text" placeholder="Enter a word" maxlength="51" required>
+    <div id="radio-buttons">
+      <input type="radio" id="english_to_danish" name="direction" value="english_to_danish" checked>
+      <label for="english_to_danish">English-Danish</label>
+      <input type="radio" id="danish_to_english" name="direction" value="danish_to_english">
+      <label for="danish_to_english">Danish-English</label>
+    </div>
+    <br>
+    <button type="submit"><span id="button-text">Translate</span></button>
+  </form>
+  <ul id="results"></ul>
+
+  <div id="question-buttons" class="follow-up-container" style="display: none;">
+    <button id="question-1" class="follow-up-button"></button>
+    <button id="question-2" class="follow-up-button"></button>
+    <button id="question-3" class="follow-up-button"></button>
+  </div>
+  
+
+  <div id="loading" style="display: none;"></div>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="app.js"></script>
+  <script>
+    const form = document.getElementById('translation-form');
+    const input = document.getElementById('text');
+
+    // Submit the form when Enter key is pressed in the input field
+    input.addEventListener('keydown', function (event) {
+      if (event.key === 'Enter') {
+        event.preventDefault(); // Prevent form submission
+
+        // Trigger form submission
+        form.dispatchEvent(new Event('submit'));
+      }
+    });
+
+    // Handle form submission
+    form.addEventListener('submit', function (event) {
+      event.preventDefault();
+
+      // ... (existing code)
+    });
+
+    // Attach event listeners to follow-up question buttons
+    const followUpButtons = document.getElementsByClassName('follow-up-button');
+    for (let i = 0; i < followUpButtons.length; i++) {
+      const button = followUpButtons[i];
+      button.textContent = predefinedQuestions[i];
+      button.onclick = (event) => handleFollowUpQuestion(actualRequests[i], event);
+    }
+  </script>
+
+<footer class="footer">
+  <p>@kaspers</p>
+</footer>
+
+</body>
+
+</html>
