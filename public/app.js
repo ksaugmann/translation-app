@@ -23,7 +23,7 @@ document.getElementById('translation-form').addEventListener('submit', function 
   const button = document.querySelector('button');
   button.classList.add('loading');  // Show the loading animation
 
-  fetch('http://localhost:3000/translate', {
+  fetch('/translate', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -83,7 +83,7 @@ function handleFollowUpQuestion(request, event) {
   // Show the loading animation on the clicked button
   button.classList.add('loading', 'hide-text');
 
-  fetch('http://localhost:3000/followup', {
+  fetch('/followup', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
