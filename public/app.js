@@ -4,14 +4,14 @@ marked.setOptions({ breaks: true });
 const predefinedQuestions = [
   "How should it be pronounced?",
   'What are synonyms for this word?',
-  'What are common mistakes for this word?',
+  'What are common mistakes with this word?',
 ];
 
 // Define the corresponding actual requests for each question
 const actualRequests = [
   'Please explain how the starting-word I just gave you as input should be pronounced. Please use The International Phonetic Alphabet representation as well as a simplified version using English-like spellings.',
-  'What are synonyms to the starting-word that you just translated?',
-  'Please tell me about common mistakes for the starting-word you just translated.',
+  'What are synonyms for the starting-word?',
+  'Please tell me about common mistakes for the word.',
 ];
 
 document.getElementById('translation-form').addEventListener('submit', function (e) {
@@ -19,8 +19,10 @@ document.getElementById('translation-form').addEventListener('submit', function 
 
   const text = document.getElementById('text').value;
   const direction = document.querySelector('input[name="direction"]:checked').value;
-
   const button = document.querySelector('button');
+
+  button.disabled = true; // Disable the button
+
   button.classList.add('loading');  // Show the loading animation
 
   fetch('/translate', {
@@ -33,6 +35,7 @@ document.getElementById('translation-form').addEventListener('submit', function 
     .then(response => response.json())
     .then(data => {
       button.classList.remove('loading');  // Hide the loading animation
+      button.disabled = false; // Enable the button after getting the response
 
       const resultsElement = document.getElementById('results');
       resultsElement.innerHTML = '';
@@ -51,26 +54,27 @@ document.getElementById('translation-form').addEventListener('submit', function 
         { role: 'assistant', content: cleanedData },
       ];
 
-        // Display follow-up questions
-        const questionButtons = document.getElementById('question-buttons');
-        questionButtons.style.display = 'block';
-  
-        // Trigger a reflow, flushing the CSS changes
-        void questionButtons.offsetWidth;
-  
-        // Now setup the transition
-        questionButtons.style.opacity = '1';
-        questionButtons.style.transform = 'translateY(0)';
-        
-        for (let i = 1; i <= 3; i++) {
-          const button = document.getElementById(`question-${i}`);
-          button.textContent = predefinedQuestions[i - 1];
-          button.onclick = (event) => handleFollowUpQuestion(actualRequests[i - 1], event);
-        }
+      // Display follow-up questions
+      const questionButtons = document.getElementById('question-buttons');
+      questionButtons.style.display = 'block';
+
+      // Trigger a reflow, flushing the CSS changes
+      void questionButtons.offsetWidth;
+
+      // Now setup the transition
+      questionButtons.style.opacity = '1';
+      questionButtons.style.transform = 'translateY(0)';
+
+      for (let i = 1; i <= 3; i++) {
+        const button = document.getElementById(`question-${i}`);
+        button.textContent = predefinedQuestions[i - 1];
+        button.onclick = (event) => handleFollowUpQuestion(actualRequests[i - 1], event);
+      }
 
     })
     .catch(err => {
       button.classList.remove('loading');  // Hide the loading animation
+      button.disabled = false; // Enable the button even if there's an error
       console.error(err);
     });
 });
@@ -79,9 +83,13 @@ let previousConversations = [];
 
 function handleFollowUpQuestion(request, event) {
   const button = event.target; // Get the button that triggered the event
+  const allButtons = document.querySelectorAll('#question-1, #question-2, #question-3');
 
   // Show the loading animation on the clicked button
   button.classList.add('loading', 'hide-text');
+
+  // Disable all the follow-up buttons
+  allButtons.forEach(btn => btn.disabled = true);
 
   fetch('/followup', {
     method: 'POST',
@@ -90,8 +98,15 @@ function handleFollowUpQuestion(request, event) {
     },
     body: JSON.stringify({ text: request, previousConversations }),
   })
-    .then(response => response.json())
+    .then(response => {
+      if (!response.ok) { // Check if the response was successful
+        throw new Error('Network response was not ok'); // This will be caught by the catch block below
+      }
+      return response.json(); // If the response was successful, continue with the original code
+    })
     .then(data => {
+      // Enable all the follow-up buttons after getting the response
+      allButtons.forEach(btn => btn.disabled = false);
       button.classList.remove('loading', 'hide-text');  // Hide the loading animation
 
       const resultsElement = document.getElementById('results');
@@ -112,6 +127,10 @@ function handleFollowUpQuestion(request, event) {
     })
     .catch(err => {
       button.classList.remove('loading', 'hide-text');  // Hide the loading animation
+      // Enable all the follow-up buttons after getting the response
+      allButtons.forEach(btn => btn.disabled = false);
+      // Now, instead of just logging the error, also show a message to the user
       console.error(err);
+      alert('Der opstod en fejl: ' + err.message + ' Prøv evt. igen.');
     });
 }

@@ -110,10 +110,23 @@ button {
   width: 100%;
 }
 
+button:hover {
+  background-color: #0056b3; /* Change to your desired hover color */
+  cursor: pointer;
+}
+
+button:disabled {
+  background-color: #007BFF; /* Change to your desired disabled color */
+  cursor: not-allowed;
+}
+
 #question-1, #question-2, #question-3 {
   background-color: #4682B4; /* Steel Blue */
   color: white;
+}
 
+#question-1:hover, #question-2:hover, #question-3:hover {
+  background-color: #0056b3; /* Change to your desired hover color */
 }
 
 #question-buttons {
