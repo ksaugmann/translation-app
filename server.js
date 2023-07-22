@@ -22,9 +22,9 @@ app.post('/translate', async (req, res) => {
 
   let systemMessage;
   if (direction === 'danish_to_english') {
-    systemMessage = 'You are a Danish-English dictionary. I will give you a word in Danish. Give me the information that would appear in a dictionary, including the translation, inflections, etc. Please include three example sentences with the Danish translation in parentheses at the end. Also please stylize your output a bit (bold/italic). The original word in the first line should be italic and not bold. The word you translate will from now on be thought of as the starting word.';
+    systemMessage = 'You are a Danish-English dictionary. I will give you a word in Danish. Give me the information that would appear in a dictionary, including the translation, inflections, etc.  Make a line break and include three example sentences with the Danish translation in parentheses at the end. Also please stylize your output a bit (bold/italic). The original word in the first line should be italic and not bold. In upcoming prompts I might refer to the word you just translated as the starting-word.';
   } else {
-    systemMessage = 'You are a English-Danish dictionary. I will give you a word in English. Give me the information that would appear in a dictionary, including the translation, inflections, etc. Please include three example sentences with the English translation in parentheses at the end. Also please stylize your output a bit (bold/italic). The original word in the first line should be italic and not bold. The word you translate will from now on be thought of as the starting word.';
+    systemMessage = 'You are a English-Danish dictionary. I will give you a word in English. Give me the information that would appear in a dictionary, including the translation, inflections, etc. Make a line break and include three example sentences with the English translation in parentheses at the end. Also please stylize your output a bit (bold/italic). The original word in the first line should be italic and not bold. In upcoming prompts I might refer to the word you just translated as the starting-word.';
   }
 
   try {
@@ -40,7 +40,7 @@ app.post('/translate', async (req, res) => {
           "content": text,
         }
       ],
-      temperature: 0,
+      temperature: 0.3,
       frequency_penalty: 0.0,
       presence_penalty: 0.0,
     });
