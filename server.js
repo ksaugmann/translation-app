@@ -44,7 +44,6 @@ app.post('/translate', async (req, res) => {
       frequency_penalty: 0.0,
       presence_penalty: 0.0,
     });
-    console.log(response.data.choices)
     res.json({
       systemMessage,
       assistantResponses: response.data.choices.map(choice => choice.message.content.trim())
