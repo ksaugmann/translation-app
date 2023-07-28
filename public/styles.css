@@ -172,6 +172,13 @@ button.follow-up-button.loading span {
   font-size: 0;
 }
 
+
+/* Disclaimer styles */
+
+.disclaimer-non-visible {
+  visibility: hidden;
+}
+
 /* Result styles */
 #results {
   width: 80%; /* The same width as the form */

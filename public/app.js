@@ -20,6 +20,7 @@ document.getElementById('translation-form').addEventListener('submit', function 
   const text = document.getElementById('text').value;
   const direction = document.querySelector('input[name="direction"]:checked').value;
   const button = document.querySelector('button');
+  const disclaimerText = document.getElementById('disclaimer')
 
   button.disabled = true; // Disable the button
 
@@ -36,6 +37,7 @@ document.getElementById('translation-form').addEventListener('submit', function 
     .then(data => {
       button.classList.remove('loading');  // Hide the loading animation
       button.disabled = false; // Enable the button after getting the response
+      disclaimerText.classList.add('disclaimer-non-visible')
 
       const resultsElement = document.getElementById('results');
       resultsElement.innerHTML = '';
