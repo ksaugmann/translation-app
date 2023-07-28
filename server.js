@@ -40,7 +40,7 @@ app.post('/translate', async (req, res) => {
           "content": text,
         }
       ],
-      temperature: 1,
+      temperature: 0,
       frequency_penalty: 0.0,
       presence_penalty: 0.0,
     });
